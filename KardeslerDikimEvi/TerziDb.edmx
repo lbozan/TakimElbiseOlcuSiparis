@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TerziDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="14" Nullable="false" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="150" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+          <Property Name="Aktifmi" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Olcumler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriID" Type="int" Nullable="false" />
+          <Property Name="Fiyat" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Kapora1" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Kapora2" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Degerler" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Not" Type="nvarchar" MaxLength="150" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Olcumler_Musteriler">
+          <End Role="Musteriler" Type="Self.Musteriler" Multiplicity="1" />
+          <End Role="Olcumler" Type="Self.Olcumler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Olcumler">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TerziDbModelStoreContainer">
+          <EntitySet Name="Musteriler" EntityType="Self.Musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Olcumler" EntityType="Self.Olcumler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Olcumler_Musteriler" Association="Self.FK_Olcumler_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="Olcumler" EntitySet="Olcumler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TerziDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdiSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adres" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Aktifmi" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Olcumler" Relationship="TerziDbModel.FK_Olcumler_Musteriler" FromRole="Musteriler" ToRole="Olcumler" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TerziDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Musteriler" EntityType="Self.Musteriler" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Olcumler" EntityType="TerziDbModel.Olcumler" />
+          <AssociationSet Name="FK_Olcumler_Musteriler" Association="TerziDbModel.FK_Olcumler_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="Olcumler" EntitySet="Olcumler" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Olcumler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriID" Type="Int32" Nullable="false" />
+          <Property Name="Fiyat" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Kapora1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Kapora2" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Degerler" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Not" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" Nullable="false" />
+          <NavigationProperty Name="Musteriler" Relationship="TerziDbModel.FK_Olcumler_Musteriler" FromRole="Olcumler" ToRole="Musteriler" />
+        </EntityType>
+        <Association Name="FK_Olcumler_Musteriler">
+          <End Type="TerziDbModel.Musteriler" Role="Musteriler" Multiplicity="1" />
+          <End Type="TerziDbModel.Olcumler" Role="Olcumler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Olcumler">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TerziDbModelStoreContainer" CdmEntityContainer="TerziDbEntities">
+          <EntitySetMapping Name="Musteriler">
+            <EntityTypeMapping TypeName="TerziDbModel.Musteriler">
+              <MappingFragment StoreEntitySet="Musteriler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Aktifmi" ColumnName="Aktifmi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TerziDbModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Olcumler">
+            <EntityTypeMapping TypeName="TerziDbModel.Olcumler">
+              <MappingFragment StoreEntitySet="Olcumler">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Not" ColumnName="Not" />
+                <ScalarProperty Name="Degerler" ColumnName="Degerler" />
+                <ScalarProperty Name="Kapora2" ColumnName="Kapora2" />
+                <ScalarProperty Name="Kapora1" ColumnName="Kapora1" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
